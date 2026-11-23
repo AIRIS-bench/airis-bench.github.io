@@ -245,7 +245,8 @@ a:hover {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  max-width: 980px;
+  width: 100%;
+  max-width: 1120px;
   margin: 0 auto 22px;
 }
 
@@ -267,10 +268,20 @@ a:hover {
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(2.15rem, 4.2vw, 3.35rem);
-  line-height: 1.13;
-  letter-spacing: -0.022em;
+  font-size: clamp(1.9rem, 3.1vw, 2.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
   color: var(--ink-strong);
+}
+
+.hero-title .title-line {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .hero-title .title-line {
+    display: inline;
+  }
 }
 
 .hero-title .acronym {
