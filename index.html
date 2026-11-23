@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIRIS: Benchmarking Social Embodied Intelligence in Egocentric Streaming Videos</title>
+  <meta name="description" content="AIRIS is a causal streaming benchmark evaluating social embodied intelligence across Attention, Intention, Reaction, and Interaction (8,000 expert-curated QA pairs, 357 egocentric clips, 36 capabilities, 45 evaluated models)." />
+  <meta property="og:title" content="AIRIS: Benchmarking Social Embodied Intelligence in Egocentric Streaming Videos" />
+  <meta property="og:description" content="Evaluating 45 multimodal, embodied, streaming, and omni-modal foundation models along a causal time-anchored chain of Attention, Intention, Reaction, and Interaction." />
+  <meta property="og:url" content="https://airis-bench.github.io/" />
+  <meta property="og:image" content="https://airis-bench.github.io/assets/figs/fig_teaser.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Sticky Navigation -->
+  <nav class="site-nav" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">
+        <img src="assets/logo.png" alt="AIRIS Logo" />
+        <span>AIRIS</span>
+        <span class="nav-brand-tag">arXiv 2026</span>
+      </a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#framework">A-I-R-I Loop</a>
+        <a href="#benchmark">Dataset</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#insights">Insights</a>
+        <a href="#cases">Cases</a>
+        <a href="#bibtex">BibTeX</a>
+        <a href="paper.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">
+          Read Paper ↗
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        <span>arXiv Preprint · Social Embodied Intelligence Benchmark</span>
+      </div>
+
+      <div class="hero-title-wrap">
+        <div class="hero-logo-row">
+          <img src="assets/logo.png" alt="AIRIS Four-Stage Pinwheel Logo" class="hero-logo" />
+        </div>
+        <h1 class="hero-title">
+          <span class="acronym">AIRIS</span>: Benchmarking Social Embodied Intelligence in Egocentric Streaming Videos
+        </h1>
+      </div>
+
+      <p class="hero-subtitle">
+        A causal, time-anchored streaming benchmark that diagnoses where embodied agents fail along the real-time loop of
+        <strong>Attention</strong>, <strong>Intention</strong>, <strong>Reaction</strong>, and <strong>Interaction</strong>.
+      </p>
+
+      <!-- Authors & Affiliation -->
+      <div class="authors-block">
+        <div class="author-list">
+          <a class="author-item author-link" href="https://yuchen2199.github.io" target="_blank" rel="noopener noreferrer">Yuchen Zhou</a>
+          <span class="author-item">Hongsheng Wu</span>
+          <span class="author-item">Jiayu Tang</span>
+          <a class="author-item author-link" href="https://yunxuanmao.github.io" target="_blank" rel="noopener noreferrer">Yunxuan Mao</a>
+          <a class="author-item author-link" href="https://medlartea.github.io/" target="_blank" rel="noopener noreferrer">Hanjing Ye</a>
+          <span class="author-item">Shenghao Zhang</span>
+          <a class="author-item author-link" href="https://vaew.github.io" target="_blank" rel="noopener noreferrer">Jing Tang</a>
+          <span class="author-item">Chun-Kai Fan</span>
+          <span class="author-item">Yufei Huang</span>
+          <a class="author-item author-link" href="https://ygling2008.github.io" target="_blank" rel="noopener noreferrer">Yonggen Ling</a>
+          <a class="author-item author-link" href="https://cghezhang.github.io" target="_blank" rel="noopener noreferrer">He Zhang</a>
+        </div>
+        <div class="affiliation-line">Tencent Robotics X Lab</div>
+      </div>
+
+      <!-- Primary Links -->
+      <div class="cta-row">
+        <a href="paper.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Paper (PDF)
+        </a>
+        <a href="#leaderboard" class="btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Leaderboard (45 VLMs)
+        </a>
+        <a href="#cases" class="btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Case Explorer
+        </a>
+        <a href="#bibtex" class="btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Cite (BibTeX)
+        </a>
+        <span class="btn btn-muted" title="Benchmark toolkit & evaluation data release">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Dataset &amp; Harness <span class="pill-soon">Soon</span>
+        </span>
+      </div>
+
+      <!-- Headline Stat Strip -->
+      <div class="stats-ribbon">
+        <div class="stat-card s-att">
+          <div class="stat-value">8,000</div>
+          <div class="stat-label">Expert-Curated QA Pairs</div>
+          <div class="stat-sub">Perfectly balanced 2,000 × 4 across A-I-R-I stages; 87.7% causal streaming triggers.</div>
+        </div>
+        <div class="stat-card s-int">
+          <div class="stat-value">357 Clips</div>
+          <div class="stat-label">10.91h Egocentric Streams</div>
+          <div class="stat-sub">Spanning 11 real-world social contexts &amp; 230 fine-grained interpersonal subscenes.</div>
+        </div>
+        <div class="stat-card s-rea">
+          <div class="stat-value">36</div>
+          <div class="stat-label">Capability Dimensions</div>
+          <div class="stat-sub">19 Attention · 3 Intention · 4 Reaction · 10 Interaction &amp; social-norm probes.</div>
+        </div>
+        <div class="stat-card s-inter">
+          <div class="stat-value">45 Models</div>
+          <div class="stat-label">Zero-Shot Model Landscape</div>
+          <div class="stat-sub">Proprietary, open general, embodied, streaming-video, and omni-modal VLMs.</div>
+        </div>
+      </div>
+
+      <!-- Teaser Figure -->
+      <div class="fig-frame">
+        <img
+          src="assets/figs/fig_teaser.png"
+          alt="AIRIS Overview: Evaluating social embodied intelligence over time across Attention, Intention, Reaction, and Interaction under causal streaming prefixes."
+          class="zoomable"
+        />
+        <div class="fig-caption">
+          <strong>Figure 1 · Evaluating social embodied intelligence over time.</strong>
+          Each interpersonal episode is anchored at four temporal milestones: <code>T₀</code> (social cue onset), <code>T₁</code> (earliest moment intent becomes decidable), <code>T₂</code> (ego response onset), and <code>T₃</code> (interaction resolution). Queries at timestamp <code>τ</code> receive strictly the causal prefix <code>O_{≤τ}</code> without access to future evidence. <em>(Click any figure to inspect at full resolution.)</em>
+        </div>
+      </div>
+
+      <!-- Interactive Causal Timeline Scrubber -->
+      <div class="causal-sim" aria-label="Interactive Causal Prefix walkthrough">
+        <div class="causal-sim-top">
+          <div class="causal-sim-title">
+            <span>Interactive Episode Walkthrough · Strict Causal Prefix Protocol</span>
+          </div>
+          <span class="causal-badge" id="sim-badge">Causal Prefix O_{≤ 2.0s}</span>
+        </div>
+
+        <div class="anchor-stepper" role="tablist">
+          <button type="button" class="anchor-btn active">
+            <span class="a-time">T₀ = 2.0 s · Cue Onset</span>
+            <span class="a-name">Early Observation (τ &lt; T₁)</span>
+            <span class="a-desc">Cue appears; intent not yet supportable</span>
+          </button>
+          <button type="button" class="anchor-btn">
+            <span class="a-time">T₁ = 4.5 s · Decidability Onset</span>
+            <span class="a-name">Intent Becomes Inferable</span>
+            <span class="a-desc">Sufficient visual/acoustic evidence</span>
+          </button>
+          <button type="button" class="anchor-btn">
+            <span class="a-time">T₂ = 6.0 s · Reaction Onset</span>
+            <span class="a-name">Ego Embodied Response</span>
+            <span class="a-desc">Coordinated engagement &amp; action</span>
+          </button>
+          <button type="button" class="anchor-btn">
+            <span class="a-time">T₃ = 9.5 s · Episode Resolution</span>
+            <span class="a-name">Post-Hoc Norm Evaluation</span>
+            <span class="a-desc">Completion, understanding &amp; etiquette</span>
+          </button>
+        </div>
+
+        <div class="prefix-bar-track" aria-hidden="true">
+          <div class="prefix-bar-fill" id="sim-bar-fill" style="width:21%"></div>
+        </div>
+        <div class="prefix-bar-legend">
+          <span>t = 0.0 s (Stream Start)</span>
+          <span>T₀ (2.0s)</span>
+          <span>T₁ (4.5s)</span>
+          <span>T₂ (6.0s)</span>
+          <span>T₃ = 9.5 s (Diagonal Stripes = Masked Future)</span>
+        </div>
+
+        <div class="sim-stage-grid">
+          <div class="sim-stage-box st-att">
+            <div class="sim-stage-head">A · Attention</div>
+            <div class="sim-q" id="sim-att-q"></div>
+            <div class="sim-a" id="sim-att-a"></div>
+          </div>
+          <div class="sim-stage-box st-int">
+            <div class="sim-stage-head">I · Intention</div>
+            <div class="sim-q" id="sim-int-q"></div>
+            <div class="sim-a" id="sim-int-a"></div>
+          </div>
+          <div class="sim-stage-box st-rea">
+            <div class="sim-stage-head">R · Reaction</div>
+            <div class="sim-q" id="sim-rea-q"></div>
+            <div class="sim-a" id="sim-rea-a"></div>
+          </div>
+          <div class="sim-stage-box st-inter">
+            <div class="sim-stage-head">I · Interaction</div>
+            <div class="sim-q" id="sim-inter-q"></div>
+            <div class="sim-a" id="sim-inter-a"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Abstract & Contributions -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="tldr-banner">
+        <span class="tldr-pill">TL;DR</span>
+        <p>
+          Current vision-language and embodied models are <strong>capable passive observers and post-hoc judges, yet poorly calibrated online social agents</strong>: across 45 evaluated models, top VLMs achieve <strong>93.6%</strong> on social-cue Attention, yet prematurely guess human intents on <strong>26%–51%</strong> of pre-evidence queries and collapse below <strong>14.7%</strong> when required to compose timing, action domain, and concrete execution jointly.
+        </p>
+      </div>
+
+      <div class="section-header">
+        <span class="section-kicker">01 · Motivation &amp; Abstract</span>
+        <h2 class="section-title">Bridging Passive Social Perception and Embodied Interaction</h2>
+      </div>
+
+      <div class="abstract-card">
+        <p>
+          Embodied agents operating around people must not only recognize social cues, but also decide when the available evidence is sufficient, whether to intervene, and how to respond without violating social norms. Existing benchmarks typically evaluate these abilities in isolation or with access to completed videos, obscuring where an online social decision fails. We introduce <strong>AIRIS</strong>, a causal streaming benchmark that formulates social embodied intelligence as a time-anchored chain of <strong>Attention</strong>, <strong>Intention</strong>, <strong>Reaction</strong>, and <strong>Interaction</strong> (A-I-R-I). AIRIS contains 8,000 expert-curated questions grounded in 357 egocentric clips across 11 context categories and 36 capability dimensions. At each query, models receive only the observation prefix available at that time; decision-aware metrics reward calibrated waiting and complete reactions while penalizing premature commitment. Evaluating 45 proprietary and open-source general-purpose, embodied, streaming-video, and omni-modal models reveals fragmented and temporally miscalibrated competence. General-purpose VLMs excel at passive cue grounding and intent recognition, whereas embodied specialists lead on isolated reaction sub-decisions; yet across all families, models frequently guess intents before sufficient evidence emerges and fail to jointly align intervention timing, action domain, and concrete execution within the same episode. AIRIS thus provides a diagnostic foundation for bridging the gap between passive social perception and reliable embodied interaction.
+        </p>
+      </div>
+
+      <div class="contrib-grid">
+        <div class="contrib-card">
+          <div class="contrib-num">CONTRIBUTION 01</div>
+          <h3>Formalizing the A-I-R-I Loop</h3>
+          <p>
+            Decomposes multi-party social interaction into an interdependent four-stage decision process anchored at <code>T₀–T₃</code>, linking observable cue grounding with latent goal inference, proactive ego action, and social norm compliance within shared episodes.
+          </p>
+        </div>
+        <div class="contrib-card">
+          <div class="contrib-num">CONTRIBUTION 02</div>
+          <h3>Causal Egocentric Streaming</h3>
+          <p>
+            8,000 expert-verified QA items across 11 real-world contexts and 36 capabilities evaluated strictly from causal prefixes <code>O_{≤τ}</code>, eliminating future-information leakage while explicitly scoring calibrated abstention.
+          </p>
+        </div>
+        <div class="contrib-card">
+          <div class="contrib-num">CONTRIBUTION 03</div>
+          <h3>Diagnosing the Perception–Decision Gap</h3>
+          <p>
+            Benchmarks 45 models across 5 architectural families, uncovering two fundamental bottlenecks: severe pre-<code>T₁</code> false commitment and multiplicative collapse on end-to-end reaction composition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A-I-R-I 36-Capability Ontology -->
+  <section class="section section-alt" id="framework">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">02 · Task Formulation &amp; Capability Ontology</span>
+        <h2 class="section-title">The 36-Capability A-I-R-I Ontology</h2>
+        <p class="section-lead">
+          AIRIS structures online social embodied intelligence into 36 fine-grained capability dimensions spanning observable cue grounding, streamed intent inference, ego response specification, and interaction compliance.
+        </p>
+      </div>
+
+      <!-- Interactive 36-Capability Browser -->
+      <div class="ontology-panel">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px">
+          <div>
+            <strong style="font-size:1.02rem;color:var(--ink-strong)">Interactive 36-Capability Ontology Browser</strong>
+            <span style="font-size:0.84rem;color:var(--ink-muted);margin-left:8px">Inspect input prefixes, answer formats, and operational definitions</span>
+          </div>
+        </div>
+        <div class="tab-bar" id="ontology-tabs">
+          <button type="button" class="tab-pill active" data-stage="all">View All 36</button>
+          <button type="button" class="tab-pill" data-stage="attention">Attention · 19 Capabilities (A1–A19)</button>
+          <button type="button" class="tab-pill" data-stage="intention">Intention · 3 Capabilities (I1–I3)</button>
+          <button type="button" class="tab-pill" data-stage="reaction">Reaction · 4 Capabilities (R1–R4)</button>
+          <button type="button" class="tab-pill" data-stage="interaction">Interaction · 10 Capabilities (N1–N10)</button>
+        </div>
+        <div class="ontology-grid" id="ontology-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset Construction, Statistics & Comparison -->
+  <section class="section" id="benchmark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">03 · Dataset Curation &amp; Landscape</span>
+        <h2 class="section-title">Six-Stage Human–Model Collaborative Construction</h2>
+        <p class="section-lead">
+          Every released question preserves a verified provenance chain back to its source egocentric clip, reviewed A-I-R-I annotations, and leak-free causal prefix. Model proposals are never accepted as ground truth without multi-annotator human adjudication.
+        </p>
+      </div>
+
+      <div class="fig-frame">
+        <img
+          src="assets/figs/fig_data_pipeline.png"
+          alt="AIRIS Six-Stage Data Construction Pipeline: Video Retrieval, Eligibility Screening, Episode Segmentation, Layer-Specific A-I-R-I Annotations, QA Compilation, and Expert Curation."
+          class="zoomable"
+        />
+        <div class="fig-caption">
+          <strong>Figure 2 · Six-layered AIRIS construction pipeline.</strong>
+          (1) Keyword-guided retrieval; (2) VLM + human eligibility screening across 5 perceptual/interaction criteria; (3) Human-refined episode segmentation; (4) Fully manual Attention grounding paired with multi-annotator group adjudication for Intention, Reaction, and Interaction; (5) Template-based causal QA compilation; and (6) Independent question-level expert audit (11 trained specialists).
+        </div>
+      </div>
+
+      <!-- Composition Split: Donut + 11 Contexts -->
+      <div class="comp-split">
+        <div class="fig-frame" style="display:flex;flex-direction:column;justify-content:space-between">
+          <img
+            src="assets/figs/fig_benchmark_donut.png"
+            alt="AIRIS composition sunburst showing balanced 25% A-I-R-I inner ring and 11 real-world contexts outer ring across 8,000 questions."
+            class="zoomable"
+            style="max-height:360px;object-fit:contain"
+          />
+          <div class="fig-caption">
+            <strong>Figure 3 · Balanced A-I-R-I &amp; scenario diversity.</strong>
+            Each A-I-R-I stage contains exactly 2,000 curated items (25.0%), spanning 357 clips (mean 110.0s, range 3.0–767.3s) and 22.4 questions per clip.
+          </div>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:1.05rem;color:var(--ink-strong)">Distribution Across 11 Interaction Contexts</h3>
+            <p style="margin:0 0 12px;font-size:0.84rem;color:var(--ink-muted)">
+              Covering commercial, professional, everyday social, dining, institutional, and navigation settings (230 subscenes).
+            </p>
+            <div class="context-bars" id="context-bars"></div>
+          </div>
+
+          <div class="format-pills">
+            <span class="format-pill">Single-Choice <b>63.1%</b></span>
+            <span class="format-pill">Multi-Choice <b>25.6%</b></span>
+            <span class="format-pill">BBox Grounding <b>6.4%</b></span>
+            <span class="format-pill">Yes / No <b>5.0%</b></span>
+            <span class="format-pill">Streaming Triggers <b>87.7%</b></span>
+            <span class="format-pill">Speech / ASR Context <b>41.1%</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison with Prior Benchmarks (Table 1) -->
+      <div style="margin-top:32px">
+        <h3 style="margin:0 0 10px;font-size:1.15rem;color:var(--ink-strong)">Comparison with Representative Streaming, Social &amp; Embodied Benchmarks</h3>
+        <div class="table-scroll">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Benchmark</th>
+                <th colspan="4" class="th-prof">Benchmark Profile</th>
+                <th colspan="2" class="th-set">Input Setting</th>
+                <th colspan="2" class="th-att">Attention</th>
+                <th colspan="2" class="th-int">Intention</th>
+                <th colspan="2" class="th-rea">Reaction</th>
+                <th colspan="2" class="th-inter">Interaction</th>
+              </tr>
+              <tr>
+                <th>Ego<br/>View</th>
+                <th>QA<br/>Count</th>
+                <th>QA<br/>Dims</th>
+                <th>Human<br/>Review</th>
+                <th>Causal<br/>Stream</th>
+                <th>Full<br/>Video</th>
+                <th>Partner<br/>Ground</th>
+                <th>Cue-Target<br/>Ground</th>
+                <th>Latent<br/>Goal</th>
+                <th>Intent<br/>Decidab.</th>
+                <th>Ego-Action<br/>Decision</th>
+                <th>Calibrated<br/>Inaction</th>
+                <th>Completion /<br/>Understand.</th>
+                <th>Social-Norm<br/>Compliance</th>
+              </tr>
+            </thead>
+            <tbody id="comp-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive 45-Model Leaderboard -->
+  <section class="section section-alt" id="leaderboard">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">04 · Zero-Shot Quantitative Evaluation</span>
+        <h2 class="section-title">Interactive AIRIS Leaderboard (45 Foundation Models)</h2>
+        <p class="section-lead">
+          Explore both the 37-model main-paper table and the complete 45-model supplementary evaluation pool across all stage-specific diagnostic breakdowns. Click any column header to sort; <span class="val-best">green badges</span> mark the best and <span class="val-second">underlined</span> values mark the runner-up in the active view.
+        </p>
+      </div>
+
+      <div class="lb-controls">
+        <div class="lb-row-top">
+          <div class="lb-filter-group" id="lb-cat-filters">
+            <button type="button" class="filter-chip active" data-cat="all">All Families</button>
+            <button type="button" class="filter-chip" data-cat="closed"><span class="cat-dot" style="background:var(--cat-closed)"></span>Closed-Source (4)</button>
+            <button type="button" class="filter-chip" data-cat="general"><span class="cat-dot" style="background:var(--cat-general)"></span>Open General (19)</button>
+            <button type="button" class="filter-chip" data-cat="embodied"><span class="cat-dot" style="background:var(--cat-embodied)"></span>Open Embodied (12)</button>
+            <button type="button" class="filter-chip" data-cat="streaming"><span class="cat-dot" style="background:var(--cat-streaming)"></span>Open Streaming (5)</button>
+            <button type="button" class="filter-chip" data-cat="omni"><span class="cat-dot" style="background:var(--cat-omni)"></span>Open Omni-Modal (5)</button>
+          </div>
+
+          <div class="lb-right-tools">
+            <div class="pool-toggle" role="group" aria-label="Model Pool">
+              <button type="button" class="pool-btn active" data-pool="all">Full Pool (45)</button>
+              <button type="button" class="pool-btn" data-pool="main">Main Table (37)</button>
+            </div>
+            <input type="search" id="lb-search" class="lb-search" placeholder="Search model (e.g. Gemini, Qwen, Rynn)..." aria-label="Search models" />
+          </div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px">
+          <div class="lb-view-tabs" role="tablist">
+            <button type="button" class="view-tab active" data-view="overview">Overview (Main Metrics)</button>
+            <button type="button" class="view-tab" data-view="attention">Attention Diagnostics</button>
+            <button type="button" class="view-tab" data-view="intention">Intention &amp; FCR / IAS</button>
+            <button type="button" class="view-tab" data-view="reaction">Reaction &amp; Action Domains</button>
+            <button type="button" class="view-tab" data-view="interaction">Interaction &amp; Norms</button>
+          </div>
+          <span id="lb-count-summary" style="font-family:var(--font-mono);font-size:0.76rem;color:var(--ink-muted)">Showing 45 of 45 models</span>
+        </div>
+      </div>
+
+      <div class="lb-table-wrap">
+        <table class="lb-table">
+          <thead id="lb-thead"></thead>
+          <tbody id="lb-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Interactive Multi-Model Crossover Comparator -->
+      <div class="comparator-card">
+        <div class="comp-header">
+          <div>
+            <strong style="font-size:1.02rem;color:var(--ink-strong)">Interactive Model Capability Crossover Comparator</strong>
+            <div style="font-size:0.82rem;color:var(--ink-muted)">Select any number of models (1 to 10+) to compare how capabilities shift from passive perception (A, I) to embodied execution (R, Inter)</div>
+          </div>
+          <div class="comp-toolbar">
+            <select id="comp-add-select" class="comp-select" aria-label="Add a model to compare">
+              <option value="">+ Add model to compare…</option>
+            </select>
+            <div class="comp-presets">
+              <button type="button" class="preset-btn" data-preset="family5">Top per Family (5)</button>
+              <button type="button" class="preset-btn" data-preset="crossover3">Perception vs Embodied (3)</button>
+              <button type="button" class="preset-btn" data-preset="embodied6">Embodied Suite (6)</button>
+              <button type="button" class="preset-btn" data-preset="clear">Reset (2)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-chips" id="comp-chips" aria-label="Selected models for comparison"></div>
+
+        <div class="profile-chart-grid">
+          <div class="svg-chart-box" id="comp-svg-container"></div>
+          <div class="comp-takeaway-list" id="comp-takeaway-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Five Empirical Insights -->
+  <section class="section" id="insights">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">05 · Key Experimental Discoveries</span>
+        <h2 class="section-title">Why Today’s Multimodal Models Struggle as Online Social Agents</h2>
+        <p class="section-lead">
+          Evaluating 45 models under identical causal observation prefixes exposes structural bottlenecks in temporal restraint, decision composition, and test-time reasoning.
+        </p>
+      </div>
+
+      <div class="insights-cards">
+        <div class="insight-card">
+          <div class="insight-metric-highlight">93.6% → 63.8%</div>
+          <h3>1. The Perception–Decision Gap</h3>
+          <p>
+            General-purpose VLMs dominate passive cue grounding (<code>Gemini-3.7-Flash</code>: <strong>0.936</strong> Attention, <strong>0.569</strong> Intention), yet lose their lead on downstream actions, where embodied specialists like <code>HY-Embodied-VLM-1.0</code> overtake on Reaction (<strong>0.688</strong>). Understanding social cues does not automatically yield executable embodied policy.
+          </p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-metric-highlight">26%–51% FCR</div>
+          <h3>2. Premature Commitment Before T₁</h3>
+          <p>
+            Before an intent is humanly decidable (<code>τ &lt; T₁</code>), models aggressively hallucinate specific goals instead of abstaining (<code>GLM-5.3-Flash</code> 64%, <code>Qwen3.6-35B-A3B</code> 63%, <code>GPT-5.6-Sol</code> 57%, <code>Gemini-3.7-Flash</code> 42%), capping best-in-class <strong>IAS</strong> at just <strong>0.237</strong>.
+          </p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-metric-highlight">&le; 14.7% Joint-EM</div>
+          <h3>3. End-to-End Reaction Collapse</h3>
+          <p>
+            Requiring simultaneous correctness across engagement timing, action domain, concrete sub-action, and speech function causes reaction accuracy to collapse multiplicatively: <code>HY-Embodied-VLM-1.0</code> drops from <strong>0.688</strong> aggregate Reaction to <strong>0.028</strong> Joint-EM, and no model exceeds <strong>0.147</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="insights-fig-stack">
+        <div class="fig-frame">
+          <img
+            src="assets/figs/fig_perception_anticipation.png"
+            alt="AIRIS Failure Diagnostics: (a) A-I-R-I capability crossover across 5 model families, (b) Correct-intent rate vs normalized time u around T1 and T2, and (c) Mean pre-T1 False Commitment Rate."
+            class="zoomable"
+          />
+          <div class="fig-caption">
+            <strong>Figure 4 · Capability divide and miscalibrated anticipation across 5 model families.</strong>
+            <strong>(a)</strong> Category means (thick translucent) and top representatives (thin markers) illustrate the crossover between Perception (A, I) and Execution (R, I).
+            <strong>(b)</strong> Streamed correct-intent rate over normalized interaction time <code>u</code> (<code>T₁ = 0</code>, <code>T₂ = 1</code>) rises slowly after decidability onset and reaches at most ~0.5 by <code>T₂</code>.
+            <strong>(c)</strong> Substantial pre-<code>T₁</code> False Commitment Rates (0.26–0.51) show models fail via overconfident guessing or blind passivity rather than calibrated waiting.
+          </div>
+        </div>
+
+        <div class="fig-frame">
+          <img
+            src="assets/figs/fig_think_vs_nothink.png"
+            alt="Think vs No-Think Analysis: (a) Task-specific accuracy delta heatmap across AIRIS metrics, and (b) Accuracy decline across reasoning-length quartiles Q1 to Q4."
+            class="zoomable"
+          />
+          <div class="fig-caption">
+            <strong>Figure 5 · Explicit test-time “thinking” helps spatial grounding but hurts streaming restraint.</strong>
+            <strong>(a)</strong> Allocating extended chain-of-thought boosts spatial grounding (<code>+21.8 pp</code> on A-Ground for <code>Qwen3.6-27B</code>) and engagement for <code>Qwen3-Omni-30B-A3B</code> (<code>+24.5 pp</code>), yet consistently degrades online intent (<code>I-Online</code>) and norm compliance across models (<code>Qwen3.6-35B-A3B</code> drops <code>−6.4 pp</code> Overall).
+            <strong>(b)</strong> Traces containing cognitive-revision markers (<em>“wait”</em>, <em>“however”</em>, <em>“reconsider”</em>—present in 77% of Qwen3.6 traces) lose 27–30 percentage points: under partial visual evidence, prolonged verbal deliberation fills perceptual gaps with unsupported speculation. Native streaming and omni-modal architectures likewise show unrealized dividends on high-level Theory of Mind.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qualitative Case Explorer -->
+  <section class="section section-alt" id="cases">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">06 · Qualitative Benchmark Gallery</span>
+        <h2 class="section-title">Inspect Authentic AIRIS Streaming Queries</h2>
+        <p class="section-lead">
+          Browse 15 representative evaluation items spanning all four A-I-R-I stages—from joint semantic-spatial gaze/target grounding and pre-<code>T₁</code> calibrated abstention to multi-domain checkout reactions and proxemic compliance. Click any card to zoom in.
+        </p>
+      </div>
+
+      <div class="tab-bar" id="case-tabs" style="margin-bottom:22px">
+        <button type="button" class="tab-pill active" data-stage="all">All Stages (15)</button>
+        <button type="button" class="tab-pill" data-stage="attention">Attention (4)</button>
+        <button type="button" class="tab-pill" data-stage="intention">Intention (3)</button>
+        <button type="button" class="tab-pill" data-stage="reaction">Reaction (4)</button>
+        <button type="button" class="tab-pill" data-stage="interaction">Interaction (4)</button>
+      </div>
+
+      <div class="cases-grid" id="cases-grid"></div>
+    </div>
+  </section>
+
+  <!-- BibTeX Citation -->
+  <section class="section" id="bibtex">
+    <div class="container-narrow">
+      <div class="section-header">
+        <span class="section-kicker">07 · Citation</span>
+        <h2 class="section-title">Cite AIRIS</h2>
+        <p class="section-lead">
+          If you find AIRIS useful for your research in embodied intelligence, streaming video understanding, or human-robot interaction, please cite our paper:
+        </p>
+      </div>
+
+      <div class="bibtex-box">
+        <button type="button" class="copy-btn" id="copy-bibtex-btn">Copy BibTeX</button>
+        <pre id="bibtex-code">@article{zhou2026airis,
+  title   = {AIRIS: Benchmarking Social Embodied Intelligence in Egocentric Streaming Videos},
+  author  = {Zhou, Yuchen and Wu, Hongsheng and Tang, Jiayu and Mao, Yunxuan and Ye, Hanjing and Zhang, Shenghao and Tang, Jing and Fan, Chun-Kai and Huang, Yufei and Ling, Yonggen and Zhang, He},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p style="margin:0 0 6px;font-weight:600;color:var(--ink-strong)">
+        AIRIS · Tencent Robotics X Lab
+      </p>
+      <p style="margin:0">
+        Benchmarking Social Embodied Intelligence Across Attention, Intention, Reaction, and Interaction.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Full-Resolution Figure Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full resolution figure viewer">
+    <div class="lightbox-inner">
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close viewer">×</button>
+      <img id="lightbox-img" src="" alt="" />
+      <div class="lightbox-cap" id="lightbox-cap"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
